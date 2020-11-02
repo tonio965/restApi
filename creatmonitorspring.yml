@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: springmonitor3
+  name: springmonitor3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: springmonitor3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        database: "true"
+        monitor: "true"
+        service: springmonitor3
+    spec:
+      hostname: springmonitor3
+      containers:
+        - image: springmonitor3:latest
+          name: springmonitor2
+          imagePullPolicy: Never
+          volumeMounts:
+          - mountPath: /myLogs
+            name: mylogs
+      volumes:
+        - name: mylogs
+          hostPath:
+            path: /myLogs
+            type: Directory
+status: {}

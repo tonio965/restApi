@@ -1,0 +1,11 @@
+FROM alpine:3.11
+RUN apk update vim
+RUN apk update jq
+RUN apk add jq
+RUN apk add vim
+COPY ./scripts myApp/scripts
+COPY ./conf /myApp/conf
+COPY ./cert /myApp/cert
+RUN mkdir /myApp/myLogs
+WORKDIR /myApp/scripts
+CMD ["./uptimeCtr.sh"]

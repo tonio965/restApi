@@ -1,0 +1,25 @@
+command to check if servers are up
+
+//download from health
+wget --no-check-certificate https://192.169.0.3:8083/actuator/health
+
+
+//mavenJava
+wget --no-check-certificate --spider https://192.169.0.3:8083/actuator/health
+wget --no-check-certificate --spider https://192.169.0.3:8082/v1/test
+
+//spring
+wget --no-check-certificate --spider https://192.169.0.5:8082/v1/test
+wget --no-check-certificate --spider https://192.169.0.5:8083/actuator/health
+
+
+
+ wget --no-check-certificate https://192.169.0.3:8083/actuator/metrics/http.server.requests
+jq '.measurements[0].value' http.server.requests
+
+ wget --no-check-certificate  https://localhost:8083/actuator/metrics/process.uptime
+jq '.measurements[0].value' process.uptime
+
+ wget --no-check-certificate  https://localhost:8083/actuator/metrics/jvm.memory.used
+ jq '.measurements[0].value' jvm.memory.used
+ 

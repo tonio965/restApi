@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: exampleAPI
+  description: example api showing REST 
+  version: 0.0.1
+servers:
+  - url: http://localhost:8082/
+    description: local server
+
+paths:
+  /v1/test:
+    get:
+      summary: Returns a sample json response.
+      responses:
+        '200': 
+          description: Sample json response
+          headers:
+            myHeader:
+              schema:
+                type: string
+              description: name of API.
+            Date:
+              schema:
+                type: string
+              description: Date of evaluation
+            Content type:
+              schema:
+                type: string
+              description: Describes content type
+            Content length:
+              schema:
+                type: integer
+              description: Describes content length
+              
+              
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 22
+                  message:
+                    type: string
+                    example: success
+  /v2/test:
+    post:
+      summary: Returns name with increased number.
+
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: tomek2
+      responses: 
+        '200':
+          description: OK
+          headers:
+            myHeader:
+              schema:
+                type: string
+              description: name of API.
+            Date:
+              schema:
+                type: string
+              description: Date of evaluation
+            Content type:
+              schema:
+                type: string
+              description: Describes content type
+            Content length:
+              schema:
+                type: integer
+              description: Describes content length
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: tomek3
+    get:
+      summary: Returns name inserted by /v2/test method with increased number.
+      responses: 
+        '200':
+          description: OK
+          headers:
+            myHeader:
+              schema:
+                type: string
+              description: name of API.
+            Date:
+              schema:
+                type: string
+              description: Date of evaluation
+            Content type:
+              schema:
+                type: string
+              description: Describes content type
+            Content length:
+              schema:
+                type: integer
+              description: Describes content length
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: tomek3
+

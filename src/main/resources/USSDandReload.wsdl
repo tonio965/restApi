@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WSDL:    USSDandReload.wsdl -->
+<!-- Version: 1.0 -->
+<!-- Updated: $Date: 2018/01/29 12:27:22 $ -->
+<!-- Author:  Dana Sumurduc -->
+<!-- Copyright (C) 2017 by Swisscom. All rights reserved. -->
+<!-- $Header: /data/cvs/srs/SRS_3.0/cpp/libs/libramssoapclient/USSDandReload.wsdl,v 1.2 2018/01/29 12:27:22 kga Exp $ $Name:  $ -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="USSDandReload" targetNamespace="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/">
+	<wsdl:types>
+		<xsd:schema
+				targetNamespace="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/">
+			<xsd:element name="validateSubscriber">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="username" type="xsd:string" />
+						<xsd:element name="password" type="xsd:string" />
+						<xsd:element name="msisdn" type="tns:string20" />
+						<xsd:element name="bundleId" type="tns:string5" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="validateSubscriberResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="tns:validateSubscriberResult" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:complexType name="validateSubscriberResult">
+				<xsd:sequence>
+						<xsd:element name="msisdnStatus" type="tns:short3" />
+						<xsd:element name="opStatus" type="tns:short3" />
+						<xsd:element name="saldo" type="tns:string15"
+									 minOccurs="0"/>
+						<xsd:element name="maxBalance" type="tns:string15"
+									 minOccurs="0"/>
+						<xsd:element name="lngId" type="tns:string2"
+									 minOccurs="0"/>
+						<xsd:element name="trsId" type="tns:string5"
+									 minOccurs="0"/>
+						<xsd:element name="dstId" type="tns:string2"
+									 minOccurs="0"/>
+						<xsd:element name="dateStateChanged" type="tns:string14"
+									 minOccurs="0"/>
+						<xsd:element name="SISstackID" type="tns:string2" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			
+			<xsd:element name="reloadSubscriber">
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<xsd:element name="username" type="xsd:string" />
+						<xsd:element name="password" type="xsd:string" />
+						<xsd:element name="msisdn" type="tns:string20" />
+						<xsd:element name="amount" type="xsd:double" />
+						<xsd:element name="createDate" type="tns:string14" />
+						<xsd:element name="userId" type="tns:string15" />
+						<xsd:element name="originId" type="tns:string10" />
+						<xsd:element name="messageOverride" type="tns:string160"
+									 minOccurs="0" />
+						<xsd:element name="cashType" type="tns:short3" />
+						<xsd:element name="channelType" type="tns:short3" />
+						<xsd:element name="loyId" type="xsd:long" minOccurs="0" />
+						<xsd:element name="transId" type="tns:string32" />
+						<xsd:element name="deferredDate" type="tns:string14"
+									 minOccurs="0" />
+						<xsd:element name="vpAdditionalinfo" type="tns:string40"
+									 minOccurs="0" />
+						<xsd:element name="vpBatchNr" type="tns:string40" />
+						<xsd:element name="vpValuecardNr" type="tns:string40" />
+						<xsd:element name="paymentInfo" type="tns:string256"
+									 minOccurs="0" />
+						<xsd:element name="bundleId" type="tns:string5"
+									 minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="reloadSubscriberResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="tns:reloadSubscriberResult" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:complexType name="reloadSubscriberResult">
+				<xsd:sequence>
+					<xsd:element name="result" type="tns:int3" />
+					<xsd:element name="SISstackID" type="tns:string2"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="generalUSSDRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="username" type="xsd:string" />
+						<xsd:element name="password" type="xsd:string" />
+						<xsd:element name="msisdn" type="tns:string20" />
+						<xsd:element name="srvInd" type="tns:string3" />
+						<xsd:element name="sia" type="tns:string100"
+									 minOccurs="0" />
+						<xsd:element name="sib" type="tns:string100"
+									 minOccurs="0" />
+						<xsd:element name="vlrAddress" type="tns:string12" />
+						<xsd:element name="counter" type="xsd:long" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="generalUSSDRequestResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="tns:generalUSSDRequestResult" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:complexType name="generalUSSDRequestResult">
+				<xsd:sequence>
+					<xsd:element name="status" type="tns:int3" />
+					<xsd:element name="counter" type="xsd:double" />
+					<xsd:element name="text" type="tns:string160" />
+					<xsd:element name="SISstackID" type="tns:string2"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="checkConnection">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="username" type="xsd:string" />
+						<xsd:element name="password" type="xsd:string" />
+						<xsd:element name="clienttimestamp" type="tns:string14" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="checkConnectionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="tns:CheckConnectionResultSeq"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="CheckConnectionResult">
+				<xsd:sequence>
+					<xsd:element name="SISstackID" type="tns:string2" />
+					<xsd:element name="clienttimestamp" type="tns:string14" />
+					<xsd:element name="servertimestamp" type="tns:string14" />
+					<xsd:element name="result" type="tns:int3" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CheckConnectionResultSeq">
+				<xsd:sequence>
+					<xsd:element name="item" type="tns:CheckConnectionResult"
+								 minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="string20">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string3">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string100">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="100" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string12">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="12" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string2">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string160">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="160" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string5">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="5" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string15">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string14">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="14" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string10">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string32">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="32" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string40">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="40"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="string256">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="256" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="short3">
+				<xsd:restriction base="xsd:short">
+					<xsd:maxInclusive value="999"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="int3">
+				<xsd:restriction base="xsd:int">
+					<xsd:maxInclusive value="999"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="validateSubscriberRequest">
+		<wsdl:part element="tns:validateSubscriber" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="validateSubscriberResponse">
+		<wsdl:part element="tns:validateSubscriberResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="reloadSubscriberRequest">
+		<wsdl:part name="parameters" element="tns:reloadSubscriber" />
+	</wsdl:message>
+	<wsdl:message name="reloadSubscriberResponse">
+		<wsdl:part name="parameters" element="tns:reloadSubscriberResponse" />
+	</wsdl:message>
+	<wsdl:message name="generalUSSDRequestRequest">
+		<wsdl:part name="parameters" element="tns:generalUSSDRequest" />
+	</wsdl:message>
+	<wsdl:message name="generalUSSDRequestResponse">
+		<wsdl:part name="parameters" element="tns:generalUSSDRequestResponse" />
+	</wsdl:message>
+	<wsdl:message name="checkConnectionRequest">
+		<wsdl:part name="parameters" element="tns:checkConnection" />
+	</wsdl:message>
+	<wsdl:message name="checkConnectionResponse">
+		<wsdl:part name="parameters" element="tns:checkConnectionResponse" />
+	</wsdl:message>
+	<wsdl:portType name="USSDandReload">
+		<wsdl:operation name="validateSubscriber">
+			<wsdl:input message="tns:validateSubscriberRequest" />
+			<wsdl:output message="tns:validateSubscriberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="reloadSubscriber">
+			<wsdl:input message="tns:reloadSubscriberRequest" />
+			<wsdl:output message="tns:reloadSubscriberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="generalUSSDRequest">
+			<wsdl:input message="tns:generalUSSDRequestRequest" />
+			<wsdl:output message="tns:generalUSSDRequestResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="checkConnection">
+			<wsdl:input message="tns:checkConnectionRequest" />
+			<wsdl:output message="tns:checkConnectionResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="USSDandReloadSOAP" type="tns:USSDandReload">
+		<soap:binding style="document"
+					  transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="validateSubscriber">
+			<soap:operation
+					soapAction="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/validateSubscriber" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="reloadSubscriber">
+			<soap:operation
+					soapAction="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/reloadSubscriber" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="generalUSSDRequest">
+			<soap:operation
+					soapAction="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/generalUSSDRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkConnection">
+			<soap:operation
+					soapAction="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload/checkConnection" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="USSDandReload">
+		<wsdl:port binding="tns:USSDandReloadSOAP" name="USSDandReloadSOAP">
+			<soap:address
+					location="http://www.swisscom-mobile.com/ns/ws/enabling/USSDandReload" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

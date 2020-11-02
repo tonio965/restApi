@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="0b46dc49-4414-4ee8-bf4b-5153fbe6019d" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="rendomData" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testStep type="restrequest" name="reloadByPartner4" id="47ca4922-1099-495d-98f0-7dc07708a3d2"><con:settings/><con:config service="https://localhost:8082" resourcePath="/v1/MSISDNs/{targetMSISDN}/reloads/reloadByPartner" methodName="1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="reloadByPartner4" id="c87d5697-9dfe-4d30-9cbc-9fac236cbc89" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="requestID" value="${requestId#result}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>https://localhost:8082</con:endpoint><con:request>{
+	"message" : "${randomString#result}",
+	"originator" : "${randomString#result}",
+	"amount" : "${amount#result}",
+	"requestId" : "${requestId#result}",
+	"subChannel" : "${subchannel#result}",
+	"reconciliationPeriod" : "${reconcilationPeriod#result}",
+	"reloadParameters" :[ {"name":"${randomString#result}","value": "${randomString#result}"},{"name" : "${randomString#result}", "value": "${randomString#result}"} ]
+}</con:request><con:originalUri>https://localhost/v1/test</con:originalUri><con:credentials><con:username>test</con:username><con:password>test:module1</con:password><con:domain/><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="targetMSISDN" value="${msisdn#result}" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>targetMSISDN</con:entry></con:parameterOrder></con:restRequest></con:config></con:testStep><con:testStep type="groovy" name="randomString" id="d746286a-2ae4-4e85-a40f-f53a005ace92"><con:settings/><con:config><script>char[]arr = "abcdefghijklmnopqrstuvwxyz";
+StringBuilder sb= new StringBuilder();
+for(int i=0;i&lt;6;i++){
+	int index =Math.abs(new Random().nextInt() % 23) + 1;
+	sb.append(arr[index]);
+}
+return sb.toString();</script></con:config></con:testStep><con:testStep type="groovy" name="reconcilationPeriod" id="3aac787d-3b03-4fab-b5fd-11e082bb75d4"><con:settings/><con:config><script>Random r = new Random();
+double randomValue = 2020 + (2030 - 2020) * r.nextDouble();
+StringBuilder sb = new StringBuilder();
+String s= randomValue;
+s= s.substring(0,4);
+sb.append(s);
+randomValue = 101 + (364 - 101) * r.nextDouble();
+String s1 = randomValue;
+s1= s.substring(0,3);
+sb.append(s1);
+return sb.toString();</script></con:config></con:testStep><con:testStep type="groovy" name="subchannel" id="57199c9e-ad1c-456e-90d4-60776e8417f4"><con:settings/><con:config><script>char[]arr = "abcdefghijklmnopqrstuvwxyz";
+StringBuilder sb= new StringBuilder();
+for(int i=0;i&lt;9;i++){
+	int index =Math.abs(new Random().nextInt() % 23) + 1;
+	sb.append(arr[index]);
+}
+return sb.toString();</script></con:config></con:testStep><con:testStep type="groovy" name="requestId" id="3f8cea6e-415f-4b9a-a37b-9ac4dd783941"><con:settings/><con:config><script>UUID uuid = UUID.randomUUID();
+
+return uuid;</script></con:config></con:testStep><con:testStep type="groovy" name="amount" id="4befa20f-3826-40b0-b729-09020bc691e5"><con:settings/><con:config><script>Random r = new Random();
+double randomValue = 10 + (99 - 10) * r.nextDouble();
+String s = randomValue;
+return s.substring(0,5);</script></con:config></con:testStep><con:testStep type="groovy" name="originator" id="d182967f-6892-4792-b2ff-a1d8fe73089c"><con:settings/><con:config><script>char[]arr = "abcdefghijklmnopqrstuvwxyz";
+StringBuilder sb= new StringBuilder();
+for(int i=0;i&lt;9;i++){
+	int index =Math.abs(new Random().nextInt() % 23) + 1;
+	sb.append(arr[index]);
+}
+return sb.toString();
+</script></con:config></con:testStep><con:testStep type="groovy" name="msisdn" id="ac915771-3ed8-45b7-96f1-375b08d135c9"><con:settings/><con:config><script>
+return Math.abs(new Random().nextInt() % 100000000000) + 10000000000;</script></con:config></con:testStep><con:loadTest id="f188f057-fc19-41a3-88c9-9853159d4bb7" name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>300</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase>

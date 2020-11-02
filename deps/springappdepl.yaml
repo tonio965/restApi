@@ -1,0 +1,61 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: myspringapp8
+ spec:
+    selector:
+        matchLabels:
+            app: myspringapp8
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                app: myspringapp8
+                monitoring: "true"
+                access-db: "true"
+        spec:
+           containers:
+                - image: reloadapi:0.0.1
+                  name: myspringapp8
+                  imagePullPolicy: Never
+                  volumeMounts:
+                        - name: log
+                          mountPath: /log
+                        - name: conf
+                          mountPath: /conf
+                        - name: cert
+                          mountPath: /cert
+                        - name: scripts
+                          mountPath: /scripts
+                  env:
+                        - name: MODULE
+                          value: exampleapi.log
+                        - name: LOG_BASE
+                          value: /log
+                        - name: LOGGING_CONFIG
+                          value: /conf/example.log4j2.xml
+                        - name: SPRING_CONFIG_LOCATION
+                          value: /conf/example.properties
+                  ports:
+                        - containerPort: 8082
+                          name: springapp
+                        - containerPort: 8083
+                          name: actuator
+           volumes:
+                - name: log
+                  hostPath:
+                    path: /log
+                    type: Directory
+                - name: conf
+                  hostPath:
+                    path: /conf
+                    type: Directory
+                - name: cert
+                  hostPath:
+                    path: /cert
+                    type: Directory
+                - name: scripts
+                  hostPath:
+                    path: /scripts
+                    type: Directory

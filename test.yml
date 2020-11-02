@@ -1,0 +1,71 @@
+version: "3.8"
+
+services: 
+    reload_db2:
+        image: mysql:8
+        ports: 
+            - "0.0.0.0:8012:8012"
+        networks:
+            - database
+        environment:
+           MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+           MYSQL_DATABASE: reload_db
+           MYSQL_USER: rld
+           MYSQL_PASSWORD: rld
+   
+    java1: 
+        image: imageone
+        ports:
+            - "8085:8080"
+        networks:
+            - database
+            - monitor
+            
+    java2:
+        image: reloadapi:0.0.1
+        networks:
+            - database
+            - monitor
+        ports:
+            - "8084:8080"
+        volumes:
+            - /conf:/conf/
+            - /cert:/workspace/cert/
+            - /log:/log
+            - /script:/script
+        command: //bin/sh ../script/run.sh
+         
+    java1M:
+        image: alpine:latest
+        networks:
+            - monitor
+        volumes:
+            - /script:/script/
+        environment:
+            IP_LIST: "java1"
+        command: //bin/sh ./script/upDownScript.sh
+        
+    java2M:
+        image: alpine:latest
+        networks:
+            - monitor
+        volumes:
+            - /script:/script/
+        environment:
+            IP_LIST: "java2"
+        command: //bin/sh ./script/upDownScript.sh
+    javaReturn:
+        image: alpine:latest
+        networks:
+            - monitor
+        volumes:
+            - /reportMonitor:/home
+        command: //bin/sh ./home/report.sh
+
+networks:
+    database:
+        driver: bridge
+    monitor:
+        driver: bridge
+    
+    

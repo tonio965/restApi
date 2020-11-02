@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: reloadapi
+  name: reloadapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: reloadapi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        database: "true"
+        monitor: "true"
+        service: reloadapi
+    spec:
+      hostname: reloadapi
+      containers:
+        - image: reloadapi:0.0.1
+          name: reloadapi
+          imagePullPolicy: Never
+          env:
+          - name: DMODULE
+            value: reloadapi
+          - name: LOG_BASE
+            value: /log
+          - name: LOGGING_CONFIG
+            value: /conf/example.log4j2.xml
+          - name: SPRING_CONFIG_LOCATION
+            value: /conf/example.properties
+          volumeMounts:
+          - mountPath: /conf
+            name: conf
+          - mountPath: /cert
+            name: cert
+          - mountPath: /script
+            name: script
+          ports:
+          - containerPort: 8082
+            name: springapp
+          - containerPort: 8083
+            name: springactuator
+          
+      volumes:
+        - name: conf
+          hostPath:
+            path: /conf
+            type: Directory
+        - name: cert    
+          hostPath:
+            path: /cert
+            type: Directory
+        - name: script    
+          hostPath:
+            path: /script
+            type: Directory
+status: {}

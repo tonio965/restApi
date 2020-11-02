@@ -1,0 +1,71 @@
+services:
+    mavenApp:
+        image: mavenapp
+        build:
+            context: C:/Users/tomasz.koltun/exampleapi/
+            dockerfile: mavenappdockerfile
+        container_name: mavenJava3
+        networks:
+            - appsandmonitornetwork
+            - databasenetwork
+        hostname: 'mavenJava3'
+        ports:
+            - "8084:8082"
+            - "8085:8083"
+    springApp:
+        image: reloadapi:0.0.1
+        container_name: springJava3
+        ports:
+            - "8082:8082"
+            - "8083:8083"
+        networks:
+            - appsandmonitornetwork
+            - databasenetwork
+        hostname: 'springJava3'
+        command: /bin/sh ../scripts/parametersScript.sh
+        volumes:
+            - C:/Users/tomasz.koltun/exampleapi/log:/log
+            - C:/Users/tomasz.koltun/exampleapi/conf:/conf
+            - C:/Users/tomasz.koltun/exampleapi/cert:/cert
+            - C:/Users/tomasz.koltun/exampleapi/scripts:/scripts
+    springMonitor:
+        image: monitorspring2
+        build:
+            context: C:/Users/tomasz.koltun/exampleapi/
+            dockerfile: monitorspringdockerfile
+        networks:
+            - appsandmonitornetwork
+        volumes:
+            - C:/Users/tomasz.koltun/exampleapi/log:/log
+            - C:/Users/tomasz.koltun/exampleapi/conf:/conf
+            - C:/Users/tomasz.koltun/exampleapi/cert:/cert
+            - C:/Users/tomasz.koltun/exampleapi/scripts:/scripts
+            - C:/stage2/monitors/mavenMonitors/myLogs:/myLogs
+        
+        
+    mavenMonitor:
+        image: monitormaven2
+        build:
+            context: C:/Users/tomasz.koltun/exampleapi/
+            dockerfile: monitormavendockerfile
+        networks:
+            - appsandmonitornetwork
+        volumes:
+            - C:/stage2/monitors/mavenMonitors/myLogs:/myApp/myLogs
+        
+        
+    reportContainer:
+        image: reporter
+        build:
+            context: C:/Users/tomasz.koltun/exampleapi/cron
+            dockerfile: dockerfile
+        volumes:
+            - C:/stage2/monitors/mavenMonitors/myLogs:/logs
+version: '3.0'
+
+networks:
+    appsandmonitornetwork:
+        external: true
+    databasenetwork:
+        external: true
+    
